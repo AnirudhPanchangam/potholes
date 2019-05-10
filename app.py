@@ -3,7 +3,7 @@ from pymongo import MongoClient
 import json
 import os
 
-static_folder = os.path.join(os.path.dirname(__file__), "static")
+static_folder = os.path.join(os.path.abspath(__file__), "static")
 print(static_folder)
 app = Flask(__name__, static_url_path=static_folder)
 
