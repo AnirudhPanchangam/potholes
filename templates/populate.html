@@ -19,13 +19,19 @@
                 var map;
                 var marker;
                 function initPosition() {
-                    var pos = { lat: 77, lng: 12};
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(showPosition);
+                    } else {
+                        document.getElementById('map').innerHTML = "Geolocation is not supported by this browser.";
+                    }
+                }
+                function showPosition(position) {
+                    var pos = { lat: position.coords.latitude, lng: position.coords.longitude};
                     map = new google.maps.Map(
                       document.getElementById('map'), {zoom: 15, center: pos});
                     marker = new google.maps.Marker({position: pos, map: map});
                     setUpMap();
                 }
-                
                 function setUpMap() {
                     map.addListener('click', function(e) {
                     placeMarkerAndPanTo(e.latLng, map);
