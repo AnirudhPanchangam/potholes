@@ -2,7 +2,11 @@ from flask import Flask, render_template, send_from_directory
 from pymongo import MongoClient
 import json
 import os
+from OpenSSL import SSL
 
+context = SSL.Context(SSL.SSLv23_METHOD)
+context.use_privatekey_file('key.pem')
+context.use_certificate_file('crt.pem')
 static_folder = os.path.join(os.path.abspath(__file__), "static")
 print(static_folder)
 app = Flask(__name__, static_url_path=static_folder)
@@ -78,4 +82,4 @@ def simdata():
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
-    app.run(port=port)
+    app.run(host="0.0.0.0", port=port, ssl_context=context)
