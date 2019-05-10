@@ -61,7 +61,7 @@
                     primary = new google.maps.Marker({position: pos, map: map, icon: images["primary"]});
                     var laLatLng = new google.maps.LatLng( pos.lat,  pos.lng);
                     map.panTo(laLatLng);
-                    api = "/fetch/" + primary.position.lat() + "/" + primary.position.lng();
+                    api = "/fetch/" + primary.position.lat() + "/" + primary.position.lng() + "/";
                     var xhttp = new XMLHttpRequest();
                     xhttp.onreadystatechange = updateMap;
                     xhttp.open("GET", api, true);
