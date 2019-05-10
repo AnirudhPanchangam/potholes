@@ -75,7 +75,3 @@ def simdata():
     data = json.load(open('route.json'))
     data = data["features"][0]["geometry"]["coordinates"]
     return json.dumps(data)
-
-if __name__ == '__main__':
-    
-    app.run(host="0.0.0.0")
