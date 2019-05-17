@@ -4,7 +4,7 @@
             <style>
                     /* Set the size of the div element that contains the map */
                    #map {
-                     height: 400px;  /* The height is 400 pixels */
+                     height: 680px;  /* The height is 400 pixels */
                      width: 100%;  /* The width is the width of the web page */
                     }
                  </style>
@@ -12,11 +12,16 @@
             <title>Simulation of the App</title>
     </head>
     <body>
-        <div id="map"></div>
+        <div class="container-fluid">
+            <br>
+            <button id="startRide" onclick="startRide()" class="btn btn-primary">Start Ride</button>
+            <button id="endRide" onclick="endRide()" class="btn btn-danger">End Ride</button>
+            <br><br>
+          <div id="map"></div>
+        </div>
         
         
-        <button id="startRide" onclick="startRide()">Start Ride</button>
-        <button id="endRide" onclick="endRide()">End Ride</button>
+        
         <script>
                 var map;
                 var marker;
@@ -31,7 +36,7 @@
                 images["1"] = "/js/blue-circle.png";
                 images["2"] = "/js/yellow-circle.png";
                 images["3"] = "/js/red-circle.png";
-                images["primary"] = "http://maps.google.com/mapfiles/kml/shapes/cabs.png";
+                images["primary"] = "http://maps.google.com/mapfiles/kml/shapes/motorcycling.png";
                 function initPosition() {
                     if (navigator.geolocation) {
                         navigator.geolocation.getCurrentPosition(showPosition);
@@ -146,7 +151,7 @@
                   navigator.geolocation.clearWatch(id);
                   clearInterval(updater);
                   window.removeEventListener('devicemotion', function(event){
-                    
+
                   });
                 }
 

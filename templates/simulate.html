@@ -5,7 +5,7 @@
             <style>
                     /* Set the size of the div element that contains the map */
                    #map {
-                     height: 600px;  /* The height is 400 pixels */
+                     height: 680px;  /* The height is 400 pixels */
                      width: 100%;  /* The width is the width of the web page */
                     }
                  </style>
@@ -13,17 +13,20 @@
             <title>Simulation of the App</title>
     </head>
     <body onload="setUpData()">
+        <div class="container-fluid">
+        <br>
         <button onclick="startSim()" class="btn btn-primary">Start Simulation</button>
-        <button onclick="stopSim()" class="btn btn-primary">Stop Simulation</button>
+        <button onclick="stopSim()" class="btn btn-dark">Stop Simulation</button>
+        <br><br>
         <div id="map"></div>
-
+        </div>
 
         <script>
                 images = {};
                 images["1"] = "/js/blue-circle.png";
                 images["2"] = "/js/yellow-circle.png";
                 images["3"] = "/js/red-circle.png";
-                images["primary"] = "http://maps.google.com/mapfiles/kml/shapes/cabs.png";
+                images["primary"] = "http://maps.google.com/mapfiles/kml/shapes/motorcycling.png";
                 var msg;
                 var map
                 var potholes = []
@@ -31,6 +34,7 @@
                 var calc;
                 var primary;
                 var simdata;
+                var flag = false;
                 function setUpData() {
                     api = "/simdata/";
                     var xhttp = new XMLHttpRequest();
@@ -129,12 +133,14 @@
 
             function stopSim() {
                 clearInterval(updater);
+                flag = true;
             }
             function sleep(ms) {
                 console.log("sleeping");
                 return new Promise(resolve => setTimeout(resolve, ms));
             }
             async function startSim() {
+                flag = false;
                 window.navigator.vibrate([200]);
                 updater = setInterval(ping, 100);
                 console.log("simStarted");
@@ -147,7 +153,9 @@
                     console.log("showing pos");
                     primary.setMap(null);
                     showPosition(p);
-                    
+                    if(flag == true) {
+                        break;
+                    }
                         
                 }
             }
