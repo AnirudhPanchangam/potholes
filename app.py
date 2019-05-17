@@ -2,13 +2,8 @@ from flask import Flask, render_template, send_from_directory
 from pymongo import MongoClient
 import json
 import os
-from OpenSSL import SSL
 
-context = SSL.Context(SSL.SSLv23_METHOD)
-context.use_privatekey_file('key.pem')
-context.use_certificate_file('crt.pem')
 static_folder = os.path.join(os.path.abspath(__file__), "static")
-print(static_folder)
 app = Flask(__name__, static_url_path=static_folder)
 
 
@@ -18,7 +13,7 @@ client = None
 def set_up_mongo():
     global client
     client = MongoClient()
-set_up_mongo()
+
 
 @app.route('/')
 def hello_world():
@@ -81,5 +76,8 @@ def simdata():
     return json.dumps(data)
 
 if __name__ == '__main__':
+    set_up_mongo()
+    context = ('cert.pem', 'key.pem')
     port = int(os.environ.get('PORT', 5000))
+    app.debug = True
     app.run(host="0.0.0.0", port=port, ssl_context=context)
